@@ -1,0 +1,10 @@
+C:\Users\Jake\Documents\Visual Studio 2008\Projects\TextToSpeechWordAddin\TextToSpeechWordAddin\bin\Debug\TextToSpeechWordAddin.dll
+C:\Users\Jake\Documents\Visual Studio 2008\Projects\TextToSpeechWordAddin\TextToSpeechWordAddin\bin\Debug\TextToSpeechWordAddin.pdb
+C:\Users\Jake\Documents\Visual Studio 2008\Projects\TextToSpeechWordAddin\TextToSpeechWordAddin\bin\Debug\TextToSpeechWordAddin.dll.manifest
+C:\Users\Jake\Documents\Visual Studio 2008\Projects\TextToSpeechWordAddin\TextToSpeechWordAddin\bin\Debug\TextToSpeechWordAddin.vsto
+C:\Users\Jake\Documents\Visual Studio 2008\Projects\TextToSpeechWordAddin\TextToSpeechWordAddin\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\Jake\Documents\Visual Studio 2008\Projects\TextToSpeechWordAddin\TextToSpeechWordAddin\obj\Debug\TextToSpeechWordAddin.Resources.resources
+C:\Users\Jake\Documents\Visual Studio 2008\Projects\TextToSpeechWordAddin\TextToSpeechWordAddin\obj\Debug\TextToSpeechWordAddin.vbproj.GenerateResource.Cache
+C:\Users\Jake\Documents\Visual Studio 2008\Projects\TextToSpeechWordAddin\TextToSpeechWordAddin\obj\Debug\TextToSpeechWordAddin.dll
+C:\Users\Jake\Documents\Visual Studio 2008\Projects\TextToSpeechWordAddin\TextToSpeechWordAddin\obj\Debug\TextToSpeechWordAddin.pdb
+C:\Users\Jake\Documents\Visual Studio 2008\Projects\TextToSpeechWordAddin\TextToSpeechWordAddin\obj\Debug\TextToSpeechWordAddin.SpeechControl.resources

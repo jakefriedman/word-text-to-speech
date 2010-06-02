@@ -13,8 +13,8 @@ Public Class SpeechControl
     Dim lastIndex As Integer 'last index of word read
     Dim isInt As Boolean 'used to indicate "word" will generate multiple SpeakProgress events
     Dim count As Integer 'used when isInt is true
-    Dim continuous As Boolean
-    Dim document As Word.Document
+    Dim continuous As Boolean 'if true, read continuously
+    Dim document As Word.Document 'holds document to read
     'Retrieves all the installed voices
     Private Sub GetInstalledVoices(ByVal synth As Speech.Synthesis.SpeechSynthesizer)
         'gets collection of InstalledVoice class objects, each InstalledVoice is a different 

@@ -11,7 +11,10 @@ Public Class SpeechControl
     Dim rng As Word.Range 'range of selection
     Dim readMe As String 'text of selection
     Dim lastIndex As Integer 'last index of word read
-
+    Dim isInt As Boolean 'used to indicate "word" will generate multiple SpeakProgress events
+    Dim count As Integer 'used when isInt is true
+    Dim continuous As Boolean
+    Dim document As Word.Document
     'Retrieves all the installed voices
     Private Sub GetInstalledVoices(ByVal synth As Speech.Synthesis.SpeechSynthesizer)
         'gets collection of InstalledVoice class objects, each InstalledVoice is a different 
@@ -27,6 +30,7 @@ Public Class SpeechControl
             stopimg.Enabled = False
             pauseimg.Enabled = False
             errorLabel.Visible = True
+            continuousBox.Enabled = False
             MsgBox("Error: No voices installed!", 0, "Error Popup")
         Else
             pauseimg.Visible = False
@@ -53,6 +57,11 @@ Public Class SpeechControl
         'on toolbar load, populate voice menu, amount menu
         isPasused = False
         highlight = False
+        continuous = False
+        isInt = False
+        'Get the instance of the active Microsoft Word 2007 document
+        document = Globals.ThisAddIn.Application.ActiveDocument
+        count = 0
         ComboBox2.Items.Add("Document") 'combobox2 == "Speech Amount"
         ComboBox2.Items.Add("Page")
         ComboBox2.Items.Add("Paragraph")
@@ -76,8 +85,7 @@ Public Class SpeechControl
             If String.IsNullOrEmpty(nextVoice) = True Then Exit Sub
             'Select the specified voice
             mySynth.SelectVoice(nextVoice)
-            'Get the instance of the active Microsoft Word 2007 document
-            Dim document As Word.Document = Globals.ThisAddIn.Application.ActiveDocument
+
             'select reading amount
             Dim txt As String = ComboBox2.Text
             If txt.ToLower = "paragraph" Then
@@ -172,77 +180,166 @@ Public Class SpeechControl
 
     'occurs when speech done
     Private Sub mySynth_SpeakCompleted(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mySynth.SpeakCompleted
-        'set all booleans, remove highlighting
-        playimg.Visible = True
-        stopimg.Visible = False
-        pauseimg.Visible = False
-        speedTrackBar.Enabled = True
-        volumeTrackBar.Enabled = True
-        useHighlight.Enabled = True
-        If highlight Then
-            rng.HighlightColorIndex = Word.WdColorIndex.wdNoHighlight
+        'keep going: remove old highlight, find new range, highlight and speak it!
+        If continuous Then
+            If highlight Then
+                rng.HighlightColorIndex = Word.WdColorIndex.wdNoHighlight
+            End If
+            Dim txt As String = ComboBox2.Text
+            Try
+                If txt.ToLower = "paragraph" Then
+                    rng = rng.Next(Word.WdUnits.wdParagraph, 1)
+                    readMe = rng.Text
+                ElseIf txt.ToLower = "sentence" Then
+                    rng = rng.Next(Word.WdUnits.wdSentence, 1)
+                    readMe = rng.Text
+                End If
+            Catch ex As Exception 'no more text to read, return to default state
+                playimg.Visible = True
+                stopimg.Visible = False
+                pauseimg.Visible = False
+                speedTrackBar.Enabled = True
+                volumeTrackBar.Enabled = True
+                useHighlight.Enabled = True
+                Exit Sub
+            End Try
+
+            'Let it speak!
+            index = 1 'index of current word about to be read, text starts at 1
+            lastIndex = 0
+            If highlight Then
+                rng.HighlightColorIndex = Word.WdColorIndex.wdYellow
+            End If
+            mySynth.SpeakAsync(readMe)
+        Else   'set all booleans, remove highlighting
+            playimg.Visible = True
+            stopimg.Visible = False
+            pauseimg.Visible = False
+            speedTrackBar.Enabled = True
+            volumeTrackBar.Enabled = True
+            useHighlight.Enabled = True
+            If highlight Then
+                rng.HighlightColorIndex = Word.WdColorIndex.wdNoHighlight
+            End If
         End If
+
     End Sub
 
     'occurs when about to speak a word, used for highlighting
     Private Sub mySynth_SpeakProgress(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mySynth.SpeakProgress
         If highlight Then
-            Dim wrdrng As Word.Range = rng.Words.Item(index)
-            Dim wrdtxt As String = wrdrng.Text
-            Dim strWords() As String = Splits(wrdtxt, ".!?,;:'()[]{}" & Chr(34)) 'removes desired characters
-            'find next word, NOT punctuation, to highlight (punctuation part of range in "Words")
-            While strWords(0).Length = 0
-                index = index + 1 'get next word
-                wrdrng = rng.Words.Item(index)
-                wrdtxt = wrdrng.Text
-                strWords = Splits(wrdtxt, ".!?,;:'()[]{}" & Chr(34)) 'parse next word
-            End While
+            If count > 0 Then
+                count = count - 1
+            Else
+                isInt = False 'assume not a number
+                Dim wrdrng As Word.Range
+                Dim wrdtxt As String
+                Try
+                    wrdrng = rng.Words.Item(index)
+                    wrdtxt = wrdrng.Text
+                    Dim s As Char = " "
+                    'loop until find next "Word" that will be read aloud by TTS.  Could be punctuation inside a word!
+                    'if some types of punctuation, will read if last char in word is not a space (end of sentence)!
+                    Do Until (Char.IsPunctuation(wrdtxt, 0) = False) Or (wrdtxt.Last().Equals(s) = False And Test(wrdtxt) = False)
+                        index = index + 1
+                        wrdrng = rng.Words.Item(index)
+                        wrdtxt = wrdrng.Text
+                    Loop
+                    'once out of loop wrdrng points to next "Word" that will be read by TTS
+                    'need to check if "word" will be generate more than 1 SPEAKPROGRESS event, ex: "1234.56" = 7 events, 3 "words"
+                    Dim value As Double
 
-            wrdrng.HighlightColorIndex = Word.WdColorIndex.wdBrightGreen 'highlight word
-            If lastIndex > 0 Then ' unhighlight word read previously
-                rng.Words.Item(lastIndex).HighlightColorIndex = Word.WdColorIndex.wdYellow
+                    isInt = Double.TryParse(wrdtxt, value)
+                    If isInt Then '"Word" is an integer, will have an event per digit/decimal
+                        count = wrdtxt.Length() - 2 'how many times to stay on this word
+                        If wrdtxt.Last().Equals(s) Then
+                            count = count - 1
+                        End If
+                    End If
+
+                    wrdrng.HighlightColorIndex = Word.WdColorIndex.wdBrightGreen 'highlight word
+                    If lastIndex > 0 Then ' unhighlight word read previously
+                        rng.Words.Item(lastIndex).HighlightColorIndex = Word.WdColorIndex.wdYellow
+                    End If
+
+                Catch ex As Exception 'Index out of bounds due to unknown chars, just continue on, but highlighting will be incorrect
+                End Try
+                lastIndex = index 'update lastIndex for next SpeakProgress
+                index = index + 1
             End If
-            lastIndex = index 'update last index
-            index = index + 1
         End If
     End Sub
 
-
-    Public Function Splits(ByVal InputText As String, _
-         ByVal Delimiter As String) As Object
-
-        ' This function splits the sentence in InputText into
-        ' words and returns a string array of the words. Each
-        ' element of the array contains one word.
-
-        ' This constant contains punctuation and characters
-        ' that should be filtered from the input string.
-        Const CHARS As String = ".!?,;:'()[]{}" & Chr(34)
-        Dim strReplacedText As String
-        Dim intIndex As Integer
-
-        ' Replace tab characters with space characters.
-        strReplacedText = Trim(Replace(InputText, _
-             vbTab, " "))
-
-        ' Filter all specified characters from the string.
-        For intIndex = 1 To Len(CHARS)
-            strReplacedText = Trim(Replace(strReplacedText, _
-                Mid(CHARS, intIndex, 1), " "))
-        Next intIndex
-
-        ' Loop until all consecutive space characters are
-        ' replaced by a single space character.
-        Do While InStr(strReplacedText, "  ")
-            strReplacedText = Replace(strReplacedText, _
-                "  ", " ")
-        Loop
-
-        ' Split the sentence into an array of words and return
-        ' the array. If a delimiter is specified, use it.
-        'MsgBox "String:" & strReplacedText
-        Splits = Split(strReplacedText, Delimiter)
-
+    'characters that return True should not be highlighted as they will not be read aloud. Look up ASCII codes to see chars skipped.
+    'there are probably many many more of these, I just did as many important ones I could find
+    Public Function Test(ByVal input As String) As Boolean
+        Dim c As Char = input.Chars(0)
+        If c.Equals(Chr(133)) Then
+            Return True
+        ElseIf c.Equals(Chr(44)) Then
+            Return True
+        ElseIf c.Equals(Chr(34)) Then
+            Return True
+        ElseIf c.Equals(Chr(39)) Then
+            Return True
+        ElseIf c.Equals(Chr(40)) Then
+            Return True
+        ElseIf c.Equals(Chr(41)) Then
+            Return True
+        ElseIf c.Equals(Chr(45)) Then
+            Return True
+        ElseIf c.Equals(Chr(91)) Then
+            Return True
+        ElseIf c.Equals(Chr(93)) Then
+            Return True
+        ElseIf c.Equals(Chr(123)) Then
+            Return True
+        ElseIf c.Equals(Chr(125)) Then
+            Return True
+        ElseIf c.Equals(Chr(145)) Then
+            Return True
+        ElseIf c.Equals(Chr(146)) Then
+            Return True
+        ElseIf c.Equals(Chr(147)) Then
+            Return True
+        ElseIf c.Equals(Chr(96)) Then
+            Return True
+        ElseIf c.Equals(Chr(148)) Then
+            Return True
+        ElseIf c.Equals(Chr(150)) Then
+            Return True
+        ElseIf c.Equals(Chr(151)) Then
+            Return True
+        ElseIf c.Equals(Chr(191)) Then
+            Return True
+        ElseIf c.Equals(Chr(161)) Then
+            Return True
+        Else
+            Return False
+        End If
     End Function
+
+    'checkbox for continuous reading
+    Private Sub continuousBox_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles continuousBox.CheckedChanged
+        If continuous Then
+            continuous = False
+        Else
+            continuous = True
+        End If
+    End Sub
+
+    'used to enable continuous reading box only for paragraphs and sentences
+    Private Sub ComboBox2_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ComboBox2.SelectedIndexChanged
+        Dim txt As String = ComboBox2.Text
+        If txt.ToLower = "paragraph" Then
+            continuousBox.Enabled = True
+        ElseIf txt.ToLower = "sentence" Then
+            continuousBox.Enabled = True
+        Else
+            continuousBox.Enabled = False
+            continuous = False
+            continuousBox.CheckState() = Windows.Forms.CheckState.Unchecked 'make box unchecked
+        End If
+    End Sub
 End Class
 

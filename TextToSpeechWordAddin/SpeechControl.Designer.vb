@@ -36,6 +36,7 @@ Partial Class SpeechControl
         Me.playimg = New System.Windows.Forms.PictureBox
         Me.pauseimg = New System.Windows.Forms.PictureBox
         Me.stopimg = New System.Windows.Forms.PictureBox
+        Me.continuousBox = New System.Windows.Forms.CheckBox
         CType(Me.speedTrackBar, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.volumeTrackBar, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.playimg, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -105,7 +106,6 @@ Partial Class SpeechControl
         '
         Me.useHighlight.AccessibleName = "Enable Highlighting"
         Me.useHighlight.AutoSize = True
-        Me.useHighlight.BackColor = System.Drawing.SystemColors.Control
         Me.useHighlight.Location = New System.Drawing.Point(21, 353)
         Me.useHighlight.Name = "useHighlight"
         Me.useHighlight.Size = New System.Drawing.Size(117, 17)
@@ -120,7 +120,7 @@ Partial Class SpeechControl
         Me.errorLabel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.errorLabel.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.errorLabel.ForeColor = System.Drawing.Color.Black
-        Me.errorLabel.Location = New System.Drawing.Point(21, 390)
+        Me.errorLabel.Location = New System.Drawing.Point(21, 412)
         Me.errorLabel.Name = "errorLabel"
         Me.errorLabel.Size = New System.Drawing.Size(124, 41)
         Me.errorLabel.TabIndex = 10
@@ -150,7 +150,7 @@ Partial Class SpeechControl
         Me.playimg.AccessibleName = "play"
         Me.playimg.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.playimg.Image = CType(resources.GetObject("playimg.Image"), System.Drawing.Image)
-        Me.playimg.Location = New System.Drawing.Point(14, 138)
+        Me.playimg.Location = New System.Drawing.Point(35, 136)
         Me.playimg.Name = "playimg"
         Me.playimg.Size = New System.Drawing.Size(45, 45)
         Me.playimg.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
@@ -162,7 +162,7 @@ Partial Class SpeechControl
         Me.pauseimg.AccessibleName = "pause"
         Me.pauseimg.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.pauseimg.Image = CType(resources.GetObject("pauseimg.Image"), System.Drawing.Image)
-        Me.pauseimg.Location = New System.Drawing.Point(60, 138)
+        Me.pauseimg.Location = New System.Drawing.Point(35, 136)
         Me.pauseimg.Name = "pauseimg"
         Me.pauseimg.Size = New System.Drawing.Size(45, 45)
         Me.pauseimg.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
@@ -174,12 +174,23 @@ Partial Class SpeechControl
         Me.stopimg.AccessibleName = "stop"
         Me.stopimg.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.stopimg.Image = CType(resources.GetObject("stopimg.Image"), System.Drawing.Image)
-        Me.stopimg.Location = New System.Drawing.Point(104, 138)
+        Me.stopimg.Location = New System.Drawing.Point(79, 136)
         Me.stopimg.Name = "stopimg"
         Me.stopimg.Size = New System.Drawing.Size(45, 45)
         Me.stopimg.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
         Me.stopimg.TabIndex = 18
         Me.stopimg.TabStop = False
+        '
+        'continuousBox
+        '
+        Me.continuousBox.AccessibleName = "Continuous Reading"
+        Me.continuousBox.AutoSize = True
+        Me.continuousBox.Location = New System.Drawing.Point(21, 376)
+        Me.continuousBox.Name = "continuousBox"
+        Me.continuousBox.Size = New System.Drawing.Size(122, 17)
+        Me.continuousBox.TabIndex = 19
+        Me.continuousBox.Text = "Continuous Reading"
+        Me.continuousBox.UseVisualStyleBackColor = True
         '
         'SpeechControl
         '
@@ -188,6 +199,7 @@ Partial Class SpeechControl
         Me.AccessibleRole = System.Windows.Forms.AccessibleRole.Alert
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.Controls.Add(Me.continuousBox)
         Me.Controls.Add(Me.stopimg)
         Me.Controls.Add(Me.pauseimg)
         Me.Controls.Add(Me.playimg)
@@ -225,5 +237,6 @@ Partial Class SpeechControl
     Friend WithEvents playimg As System.Windows.Forms.PictureBox
     Friend WithEvents pauseimg As System.Windows.Forms.PictureBox
     Friend WithEvents stopimg As System.Windows.Forms.PictureBox
+    Friend WithEvents continuousBox As System.Windows.Forms.CheckBox
 
 End Class

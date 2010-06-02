@@ -13,7 +13,6 @@ Public Class ThisAddIn
 
     'removes toolbox on word shutdown
     Private Sub ThisAddIn_Shutdown(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Shutdown
-
     End Sub
 
 End Class

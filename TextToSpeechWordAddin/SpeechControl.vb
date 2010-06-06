@@ -14,8 +14,12 @@ Public Class SpeechControl
     Dim isInt As Boolean 'used to indicate "word" will generate multiple SpeakProgress events
     Dim count As Integer 'used when isInt is true
     Dim continuous As Boolean 'if true, read continuously
+    Dim steps As Boolean 'if true, update cursor after reading
+    Dim singles As Boolean 'if true, only read selection once
+    Dim stopClick As Boolean 'if true, stop button generated SpeakCompleted event
     Dim document As Word.Document 'holds document to read
-    'Retrieves all the installed voices
+
+    'Retrieves all the installed voices, run on startup
     Private Sub GetInstalledVoices(ByVal synth As Speech.Synthesis.SpeechSynthesizer)
         'gets collection of InstalledVoice class objects, each InstalledVoice is a different 
         'speech voice
@@ -30,12 +34,15 @@ Public Class SpeechControl
             stopimg.Enabled = False
             pauseimg.Enabled = False
             errorLabel.Visible = True
-            continuousBox.Enabled = False
+            continuousR.Enabled = False
+            stepR.Enabled = False
+            singleR.Enabled = False
             MsgBox("Error: No voices installed!", 0, "Error Popup")
-        Else
+        Else 'all good, show buttons
             pauseimg.Visible = False
             playimg.Visible = True
             stopimg.Visible = False
+            stopOff.Visible = True
         End If
 
         'populate comboBox with voices
@@ -58,6 +65,8 @@ Public Class SpeechControl
         isPasused = False
         highlight = False
         continuous = False
+        steps = False
+        singles = True
         isInt = False
         'Get the instance of the active Microsoft Word 2007 document
         document = Globals.ThisAddIn.Application.ActiveDocument
@@ -65,8 +74,8 @@ Public Class SpeechControl
         ComboBox2.Items.Add("Document") 'combobox2 == "Speech Amount"
         ComboBox2.Items.Add("Page")
         ComboBox2.Items.Add("Paragraph")
-        ComboBox2.Items.Add("Selection")
         ComboBox2.Items.Add("Sentence")
+        ComboBox2.Items.Add("Selection")
         ComboBox2.SelectedIndex = 0 'select first option on load
         GetInstalledVoices(mySynth)
     End Sub
@@ -80,6 +89,7 @@ Public Class SpeechControl
             playimg.Visible = False
             pauseimg.Visible = True
             stopimg.Visible = True
+            stopOff.Visible = False
         Else
             'If no voice is selected, no action is taken
             If String.IsNullOrEmpty(nextVoice) = True Then Exit Sub
@@ -104,22 +114,30 @@ Public Class SpeechControl
                 readMe = document.Content.Text
                 rng = document.Range
             End If
-            'Let it speak! show pause/stop buttons
+            'Let it speak! set buttons, booleans
             index = 1 'index of current word about to be read, text starts at 1!
             lastIndex = 0
             If highlight Then
                 rng.HighlightColorIndex = Word.WdColorIndex.wdYellow
             End If
 
-            mySynth.SpeakAsync(readMe)
             'set booleans
             stopimg.Visible = True
+            stopOff.Visible = False
+            stopClick = False
             pauseimg.Visible = True
             playimg.Visible = False
             speedTrackBar.Enabled = False
             volumeTrackBar.Enabled = False
             useHighlight.Enabled = False
+            ComboBox1.Enabled = False
+            ComboBox2.Enabled = False
+            continuousR.Enabled = False
+            singleR.Enabled = False
+            stepR.Enabled = False
             isPasused = False
+            mySynth.SpeakAsync(readMe) 'speak text
+
         End If
     End Sub
 
@@ -138,19 +156,22 @@ Public Class SpeechControl
 
         If isPasused Then 'if paused, resume first or it will get stuck
             mySynth.Resume()
+            isPasused = False
         End If
+        stopClick = True
         mySynth.SpeakAsyncCancelAll() 'stop speaking
         'set all booleans, remove highlighting
-        isPasused = False
-        playimg.Visible = True
-        pauseimg.Visible = False
-        stopimg.Visible = False
-        speedTrackBar.Enabled = True
-        volumeTrackBar.Enabled = True
-        useHighlight.Enabled = True
-        If highlight Then
-            rng.HighlightColorIndex = Word.WdColorIndex.wdNoHighlight
-        End If
+
+        'playimg.Visible = True
+        'pauseimg.Visible = False
+        'stopimg.Visible = False
+        'speedTrackBar.Enabled = True
+        'volumeTrackBar.Enabled = True
+        'useHighlight.Enabled = True
+        'If highlight Then
+        '    rng.HighlightColorIndex = Word.WdColorIndex.wdNoHighlight
+        'End If
+
     End Sub
 
     Private Sub speedTrackBar_ValueChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles speedTrackBar.Scroll
@@ -180,17 +201,23 @@ Public Class SpeechControl
 
     'occurs when speech done
     Private Sub mySynth_SpeakCompleted(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mySynth.SpeakCompleted
+
         'keep going: remove old highlight, find new range, highlight and speak it!
-        If continuous Then
+        If continuous And stopClick = False Then
             If highlight Then
                 rng.HighlightColorIndex = Word.WdColorIndex.wdNoHighlight
             End If
             Dim txt As String = ComboBox2.Text
             Try
+                'try to move to next selection to read, update cursor
                 If txt.ToLower = "paragraph" Then
+                    Globals.ThisAddIn.Application.Selection.EndOf(Unit:=Word.WdUnits.wdParagraph)
+                    Globals.ThisAddIn.Application.Selection.Move(Unit:=Word.WdUnits.wdCharacter)
                     rng = rng.Next(Word.WdUnits.wdParagraph, 1)
                     readMe = rng.Text
                 ElseIf txt.ToLower = "sentence" Then
+                    Globals.ThisAddIn.Application.Selection.EndOf(Unit:=Word.WdUnits.wdSentence)
+                    Globals.ThisAddIn.Application.Selection.Move(Unit:=Word.WdUnits.wdCharacter)
                     rng = rng.Next(Word.WdUnits.wdSentence, 1)
                     readMe = rng.Text
                 End If
@@ -201,6 +228,21 @@ Public Class SpeechControl
                 speedTrackBar.Enabled = True
                 volumeTrackBar.Enabled = True
                 useHighlight.Enabled = True
+                If txt.ToLower = "paragraph" Then
+                    continuousR.Enabled = True
+                    stepR.Enabled = True
+                ElseIf txt.ToLower = "sentence" Then
+                    continuousR.Enabled = True
+                    stepR.Enabled = True
+                Else
+                    continuousR.Enabled = False
+                    stepR.Enabled = False
+                End If
+                singleR.Enabled = True
+                ComboBox1.Enabled = True
+                ComboBox2.Enabled = True
+                stopClick = False
+                stopOff.Visible = True
                 Exit Sub
             End Try
 
@@ -210,11 +252,39 @@ Public Class SpeechControl
             If highlight Then
                 rng.HighlightColorIndex = Word.WdColorIndex.wdYellow
             End If
-            mySynth.SpeakAsync(readMe)
-        Else   'set all booleans, remove highlighting
+            mySynth.SpeakAsync(readMe) 'speak new text
+
+        Else   'done speaking, set all booleans, remove highlighting
+            Dim txt As String = ComboBox2.Text
+            If txt.ToLower = "paragraph" Then
+                continuousR.Enabled = True
+                stepR.Enabled = True
+            ElseIf txt.ToLower = "sentence" Then
+                continuousR.Enabled = True
+                stepR.Enabled = True
+            Else
+                continuousR.Enabled = False
+                stepR.Enabled = False
+            End If
+            'check if cursor should move (Step selected)
+            If steps And stopClick = False Then
+                If txt.ToLower = "paragraph" Then
+                    Globals.ThisAddIn.Application.Selection.EndOf(Unit:=Word.WdUnits.wdParagraph)
+                    Globals.ThisAddIn.Application.Selection.Move(Unit:=Word.WdUnits.wdCharacter)
+                ElseIf txt.ToLower = "sentence" Then
+                    Globals.ThisAddIn.Application.Selection.EndOf(Unit:=Word.WdUnits.wdSentence)
+                    Globals.ThisAddIn.Application.Selection.Move(Unit:=Word.WdUnits.wdCharacter)
+                End If
+            End If
+            'turn on options again
+            singleR.Enabled = True
+            ComboBox1.Enabled = True
+            ComboBox2.Enabled = True
+            stopClick = False
             playimg.Visible = True
             stopimg.Visible = False
             pauseimg.Visible = False
+            stopOff.Visible = True
             speedTrackBar.Enabled = True
             volumeTrackBar.Enabled = True
             useHighlight.Enabled = True
@@ -251,7 +321,7 @@ Public Class SpeechControl
 
                     isInt = Double.TryParse(wrdtxt, value)
                     If isInt Then '"Word" is an integer, will have an event per digit/decimal
-                        count = wrdtxt.Length() - 2 'how many times to stay on this word
+                        count = wrdtxt.Length() - 1 'how many times to stay on this word
                         If wrdtxt.Last().Equals(s) Then
                             count = count - 1
                         End If
@@ -319,27 +389,51 @@ Public Class SpeechControl
         End If
     End Function
 
-    'checkbox for continuous reading
-    Private Sub continuousBox_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles continuousBox.CheckedChanged
-        If continuous Then
-            continuous = False
-        Else
-            continuous = True
-        End If
-    End Sub
 
-    'used to enable continuous reading box only for paragraphs and sentences
+    'used to enable continuous reading and step reading only for paragraphs and sentences
     Private Sub ComboBox2_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ComboBox2.SelectedIndexChanged
         Dim txt As String = ComboBox2.Text
         If txt.ToLower = "paragraph" Then
-            continuousBox.Enabled = True
+            continuousR.Enabled = True
+            stepR.Enabled = True
         ElseIf txt.ToLower = "sentence" Then
-            continuousBox.Enabled = True
+            continuousR.Enabled = True
+            stepR.Enabled = True
         Else
-            continuousBox.Enabled = False
-            continuous = False
-            continuousBox.CheckState() = Windows.Forms.CheckState.Unchecked 'make box unchecked
+            continuousR.Enabled = False
+            stepR.Enabled = False
+            If continuous Or steps Then
+                continuous = False
+                singleR.Checked = True
+                singles = True
+                steps = False
+            End If
         End If
     End Sub
+
+    Private Sub continuousR_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles continuousR.CheckedChanged
+        If continuousR.Checked Then
+            continuous = True
+        Else
+            continuous = False
+        End If
+    End Sub
+
+    Private Sub stepR_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles stepR.CheckedChanged
+        If stepR.Checked Then
+            steps = True
+        Else
+            steps = False
+        End If
+    End Sub
+
+    Private Sub singleR_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles singleR.CheckedChanged
+        If singleR.Checked Then
+            singles = True
+        Else
+            singles = False
+        End If
+    End Sub
+
 End Class
 

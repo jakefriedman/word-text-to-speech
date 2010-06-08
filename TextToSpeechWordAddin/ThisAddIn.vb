@@ -49,11 +49,7 @@ Public Class ThisAddIn
         For i As Integer = Me.CustomTaskPanes.Count - 1 To 0 Step -1
             ctp = Me.CustomTaskPanes.Item(i)
             If ctp.Title = "Text to Speech" Then
-                If ctp.Visible = False Then 'checks if TaskPane was manually closed by user, reopens to maintain consistency
-                    ctp.Visible = True
-                    show = True 'toggle boolean
-                End If
-                ctp.Visible = False 'normally, just hide taskpane
+                ctp.Visible = False 'just hide taskpane
             End If
         Next
     End Sub

@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<customUI xmlns="http://schemas.microsoft.com/office/2006/01/customui" onLoad="Ribbon_Load">
+  <ribbon>
+    <tabs>
+      <tab idMso="TabAddIns">
+        <group id="SpeechGroup" label="Speech">
+          <button id="showTask" label="Show/Hide Tools"
+               screentip="Speech" onAction="OnButton"
+               supertip="Toggles the Text To Speech toolbar."/>
+        </group>
+      </tab>
+    </tabs>
+  </ribbon>
+</customUI>
+

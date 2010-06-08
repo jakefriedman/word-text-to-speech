@@ -52,7 +52,7 @@ Partial Class SpeechControl
         '
         Me.ComboBox1.AccessibleName = "Speech Voice"
         Me.ComboBox1.FormattingEnabled = True
-        Me.ComboBox1.Location = New System.Drawing.Point(21, 82)
+        Me.ComboBox1.Location = New System.Drawing.Point(10, 82)
         Me.ComboBox1.Name = "ComboBox1"
         Me.ComboBox1.Size = New System.Drawing.Size(121, 21)
         Me.ComboBox1.TabIndex = 0
@@ -60,7 +60,7 @@ Partial Class SpeechControl
         'speedTrackBar
         '
         Me.speedTrackBar.AccessibleName = "Reading Speed"
-        Me.speedTrackBar.Location = New System.Drawing.Point(22, 276)
+        Me.speedTrackBar.Location = New System.Drawing.Point(11, 276)
         Me.speedTrackBar.Minimum = -10
         Me.speedTrackBar.Name = "speedTrackBar"
         Me.speedTrackBar.Size = New System.Drawing.Size(121, 45)
@@ -70,7 +70,7 @@ Partial Class SpeechControl
         'volumeTrackBar
         '
         Me.volumeTrackBar.AccessibleName = "Volume"
-        Me.volumeTrackBar.Location = New System.Drawing.Point(22, 327)
+        Me.volumeTrackBar.Location = New System.Drawing.Point(11, 327)
         Me.volumeTrackBar.Maximum = 100
         Me.volumeTrackBar.Name = "volumeTrackBar"
         Me.volumeTrackBar.Size = New System.Drawing.Size(121, 45)
@@ -81,7 +81,7 @@ Partial Class SpeechControl
         '
         Me.Label1.AccessibleName = "Select Voice"
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(23, 59)
+        Me.Label1.Location = New System.Drawing.Point(12, 59)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(77, 13)
         Me.Label1.TabIndex = 6
@@ -91,7 +91,7 @@ Partial Class SpeechControl
         '
         Me.Label2.AutoSize = True
         Me.Label2.Cursor = System.Windows.Forms.Cursors.Default
-        Me.Label2.Location = New System.Drawing.Point(23, 260)
+        Me.Label2.Location = New System.Drawing.Point(12, 260)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(84, 13)
         Me.Label2.TabIndex = 7
@@ -100,7 +100,7 @@ Partial Class SpeechControl
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(23, 311)
+        Me.Label3.Location = New System.Drawing.Point(12, 311)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(45, 13)
         Me.Label3.TabIndex = 8
@@ -110,7 +110,7 @@ Partial Class SpeechControl
         '
         Me.useHighlight.AccessibleName = "Enable Highlighting"
         Me.useHighlight.AutoSize = True
-        Me.useHighlight.Location = New System.Drawing.Point(21, 229)
+        Me.useHighlight.Location = New System.Drawing.Point(10, 229)
         Me.useHighlight.Name = "useHighlight"
         Me.useHighlight.Size = New System.Drawing.Size(117, 17)
         Me.useHighlight.TabIndex = 9
@@ -124,7 +124,7 @@ Partial Class SpeechControl
         Me.errorLabel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.errorLabel.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.errorLabel.ForeColor = System.Drawing.Color.Black
-        Me.errorLabel.Location = New System.Drawing.Point(23, 375)
+        Me.errorLabel.Location = New System.Drawing.Point(12, 375)
         Me.errorLabel.Name = "errorLabel"
         Me.errorLabel.Size = New System.Drawing.Size(124, 41)
         Me.errorLabel.TabIndex = 10
@@ -135,7 +135,7 @@ Partial Class SpeechControl
         '
         Me.ComboBox2.AccessibleName = "Speech Amount"
         Me.ComboBox2.FormattingEnabled = True
-        Me.ComboBox2.Location = New System.Drawing.Point(21, 132)
+        Me.ComboBox2.Location = New System.Drawing.Point(10, 132)
         Me.ComboBox2.Name = "ComboBox2"
         Me.ComboBox2.Size = New System.Drawing.Size(121, 21)
         Me.ComboBox2.TabIndex = 12
@@ -143,7 +143,7 @@ Partial Class SpeechControl
         'Label4
         '
         Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(19, 114)
+        Me.Label4.Location = New System.Drawing.Point(8, 114)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(86, 13)
         Me.Label4.TabIndex = 13
@@ -154,7 +154,7 @@ Partial Class SpeechControl
         Me.playimg.AccessibleName = "play"
         Me.playimg.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.playimg.Image = CType(resources.GetObject("playimg.Image"), System.Drawing.Image)
-        Me.playimg.Location = New System.Drawing.Point(36, 3)
+        Me.playimg.Location = New System.Drawing.Point(25, 3)
         Me.playimg.Name = "playimg"
         Me.playimg.Size = New System.Drawing.Size(45, 45)
         Me.playimg.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
@@ -166,7 +166,7 @@ Partial Class SpeechControl
         Me.pauseimg.AccessibleName = "pause"
         Me.pauseimg.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.pauseimg.Image = CType(resources.GetObject("pauseimg.Image"), System.Drawing.Image)
-        Me.pauseimg.Location = New System.Drawing.Point(36, 3)
+        Me.pauseimg.Location = New System.Drawing.Point(25, 3)
         Me.pauseimg.Name = "pauseimg"
         Me.pauseimg.Size = New System.Drawing.Size(45, 45)
         Me.pauseimg.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
@@ -178,7 +178,7 @@ Partial Class SpeechControl
         Me.stopimg.AccessibleName = "stop"
         Me.stopimg.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.stopimg.Image = CType(resources.GetObject("stopimg.Image"), System.Drawing.Image)
-        Me.stopimg.Location = New System.Drawing.Point(87, 3)
+        Me.stopimg.Location = New System.Drawing.Point(76, 3)
         Me.stopimg.Name = "stopimg"
         Me.stopimg.Size = New System.Drawing.Size(45, 45)
         Me.stopimg.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
@@ -188,7 +188,7 @@ Partial Class SpeechControl
         'continuousR
         '
         Me.continuousR.AutoSize = True
-        Me.continuousR.Location = New System.Drawing.Point(21, 206)
+        Me.continuousR.Location = New System.Drawing.Point(10, 206)
         Me.continuousR.Name = "continuousR"
         Me.continuousR.Size = New System.Drawing.Size(78, 17)
         Me.continuousR.TabIndex = 20
@@ -200,7 +200,7 @@ Partial Class SpeechControl
         '
         Me.singleR.AutoSize = True
         Me.singleR.Checked = True
-        Me.singleR.Location = New System.Drawing.Point(21, 159)
+        Me.singleR.Location = New System.Drawing.Point(10, 159)
         Me.singleR.Name = "singleR"
         Me.singleR.Size = New System.Drawing.Size(54, 17)
         Me.singleR.TabIndex = 21
@@ -211,7 +211,7 @@ Partial Class SpeechControl
         'stepR
         '
         Me.stepR.AutoSize = True
-        Me.stepR.Location = New System.Drawing.Point(21, 183)
+        Me.stepR.Location = New System.Drawing.Point(10, 183)
         Me.stepR.Name = "stepR"
         Me.stepR.Size = New System.Drawing.Size(47, 17)
         Me.stepR.TabIndex = 22
@@ -224,7 +224,7 @@ Partial Class SpeechControl
         Me.stopOff.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.stopOff.Enabled = False
         Me.stopOff.Image = CType(resources.GetObject("stopOff.Image"), System.Drawing.Image)
-        Me.stopOff.Location = New System.Drawing.Point(87, 3)
+        Me.stopOff.Location = New System.Drawing.Point(76, 3)
         Me.stopOff.Name = "stopOff"
         Me.stopOff.Size = New System.Drawing.Size(45, 45)
         Me.stopOff.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
@@ -257,7 +257,7 @@ Partial Class SpeechControl
         Me.Controls.Add(Me.speedTrackBar)
         Me.Controls.Add(Me.ComboBox1)
         Me.Name = "SpeechControl"
-        Me.Size = New System.Drawing.Size(173, 549)
+        Me.Size = New System.Drawing.Size(150, 430)
         CType(Me.speedTrackBar, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.volumeTrackBar, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.playimg, System.ComponentModel.ISupportInitialize).EndInit()

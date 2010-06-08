@@ -8,3 +8,4 @@ C:\Users\Jake\Documents\Visual Studio 2008\Projects\TextToSpeechWordAddin\TextTo
 C:\Users\Jake\Documents\Visual Studio 2008\Projects\TextToSpeechWordAddin\TextToSpeechWordAddin\obj\Debug\TextToSpeechWordAddin.dll
 C:\Users\Jake\Documents\Visual Studio 2008\Projects\TextToSpeechWordAddin\TextToSpeechWordAddin\obj\Debug\TextToSpeechWordAddin.pdb
 C:\Users\Jake\Documents\Visual Studio 2008\Projects\TextToSpeechWordAddin\TextToSpeechWordAddin\obj\Debug\TextToSpeechWordAddin.SpeechControl.resources
+C:\Users\Jake\Documents\Visual Studio 2008\Projects\TextToSpeechWordAddin\TextToSpeechWordAddin\bin\Debug\TextToSpeechWordAddin.dll.config

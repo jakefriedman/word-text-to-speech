@@ -95,7 +95,7 @@ Public Class SpeechControl
             If String.IsNullOrEmpty(nextVoice) = True Then Exit Sub
             'Select the specified voice
             mySynth.SelectVoice(nextVoice)
-
+            document = Globals.ThisAddIn.Application.ActiveDocument
             'select reading amount
             Dim txt As String = ComboBox2.Text
             If txt.ToLower = "paragraph" Then
@@ -211,14 +211,14 @@ Public Class SpeechControl
             Try
                 'try to move to next selection to read, update cursor
                 If txt.ToLower = "paragraph" Then
-                    Globals.ThisAddIn.Application.Selection.EndOf(Unit:=Word.WdUnits.wdParagraph)
-                    Globals.ThisAddIn.Application.Selection.Move(Unit:=Word.WdUnits.wdCharacter)
-                    rng = rng.Next(Word.WdUnits.wdParagraph, 1)
+                    Globals.ThisAddIn.Application.Selection.EndOf(Unit:=Word.WdUnits.wdParagraph) 'move to end of current paragraph
+                    Globals.ThisAddIn.Application.Selection.Move(Unit:=Word.WdUnits.wdCharacter) 'plus 1 char
+                    rng = rng.Next(Word.WdUnits.wdParagraph, 1) 'set range to next paragraph
                     readMe = rng.Text
                 ElseIf txt.ToLower = "sentence" Then
-                    Globals.ThisAddIn.Application.Selection.EndOf(Unit:=Word.WdUnits.wdSentence)
-                    Globals.ThisAddIn.Application.Selection.Move(Unit:=Word.WdUnits.wdCharacter)
-                    rng = rng.Next(Word.WdUnits.wdSentence, 1)
+                    Globals.ThisAddIn.Application.Selection.EndOf(Unit:=Word.WdUnits.wdSentence) 'move to end of current sentence
+                    Globals.ThisAddIn.Application.Selection.Move(Unit:=Word.WdUnits.wdCharacter) 'plus 1 char
+                    rng = rng.Next(Word.WdUnits.wdSentence, 1) 'set range to next sentance
                     readMe = rng.Text
                 End If
             Catch ex As Exception 'no more text to read, return to default state

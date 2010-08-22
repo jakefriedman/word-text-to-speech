@@ -18,7 +18,7 @@ Public Class ThisAddIn
 
     'Creates a task pane for every open document
     Public Sub AddAllSpeechTaskPanes()
-        If Globals.ThisAddIn.Application.Documents.Count > 0 Then
+        If Globals.ThisAddIn.Application.Documents.Count > 0 Then 'are docs open?
             If Me.Application.ShowWindowsInTaskbar Then
                 For Each _doc As Word.Document In Me.Application.Documents
                     AddSpeechTaskPane(_doc)
@@ -109,7 +109,7 @@ Public Class ThisAddIn
         Next
     End Sub
 
-    'dont call remove panes!
+    'dont call remove panes on Shutdown!
     Private Sub ThisAddIn_Shutdown(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Shutdown
     End Sub
 

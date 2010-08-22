@@ -40,6 +40,11 @@ Partial Class SpeechControl
         Me.singleR = New System.Windows.Forms.RadioButton
         Me.stepR = New System.Windows.Forms.RadioButton
         Me.stopOff = New System.Windows.Forms.PictureBox
+        Me.ReadmeButton = New System.Windows.Forms.Button
+        Me.PrimaryBox = New System.Windows.Forms.ComboBox
+        Me.SecondaryBox = New System.Windows.Forms.ComboBox
+        Me.Label5 = New System.Windows.Forms.Label
+        Me.Label6 = New System.Windows.Forms.Label
         CType(Me.speedTrackBar, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.volumeTrackBar, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.playimg, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -124,7 +129,7 @@ Partial Class SpeechControl
         Me.errorLabel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.errorLabel.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.errorLabel.ForeColor = System.Drawing.Color.Black
-        Me.errorLabel.Location = New System.Drawing.Point(12, 375)
+        Me.errorLabel.Location = New System.Drawing.Point(11, 479)
         Me.errorLabel.Name = "errorLabel"
         Me.errorLabel.Size = New System.Drawing.Size(124, 41)
         Me.errorLabel.TabIndex = 10
@@ -232,6 +237,51 @@ Partial Class SpeechControl
         Me.stopOff.TabStop = False
         Me.stopOff.Visible = False
         '
+        'ReadmeButton
+        '
+        Me.ReadmeButton.Location = New System.Drawing.Point(35, 453)
+        Me.ReadmeButton.Name = "ReadmeButton"
+        Me.ReadmeButton.Size = New System.Drawing.Size(75, 23)
+        Me.ReadmeButton.TabIndex = 24
+        Me.ReadmeButton.Text = "Readme"
+        Me.ReadmeButton.UseVisualStyleBackColor = True
+        '
+        'PrimaryBox
+        '
+        Me.PrimaryBox.Enabled = False
+        Me.PrimaryBox.FormattingEnabled = True
+        Me.PrimaryBox.Location = New System.Drawing.Point(10, 386)
+        Me.PrimaryBox.Name = "PrimaryBox"
+        Me.PrimaryBox.Size = New System.Drawing.Size(121, 21)
+        Me.PrimaryBox.TabIndex = 25
+        '
+        'SecondaryBox
+        '
+        Me.SecondaryBox.Enabled = False
+        Me.SecondaryBox.FormattingEnabled = True
+        Me.SecondaryBox.Location = New System.Drawing.Point(11, 426)
+        Me.SecondaryBox.Name = "SecondaryBox"
+        Me.SecondaryBox.Size = New System.Drawing.Size(121, 21)
+        Me.SecondaryBox.TabIndex = 26
+        '
+        'Label5
+        '
+        Me.Label5.AutoSize = True
+        Me.Label5.Location = New System.Drawing.Point(12, 370)
+        Me.Label5.Name = "Label5"
+        Me.Label5.Size = New System.Drawing.Size(104, 13)
+        Me.Label5.TabIndex = 27
+        Me.Label5.Text = "Word Highlight Color"
+        '
+        'Label6
+        '
+        Me.Label6.AutoSize = True
+        Me.Label6.Location = New System.Drawing.Point(10, 410)
+        Me.Label6.Name = "Label6"
+        Me.Label6.Size = New System.Drawing.Size(122, 13)
+        Me.Label6.TabIndex = 28
+        Me.Label6.Text = "Selection Highlight Color"
+        '
         'SpeechControl
         '
         Me.AccessibleDescription = "Need to install voices"
@@ -239,6 +289,11 @@ Partial Class SpeechControl
         Me.AccessibleRole = System.Windows.Forms.AccessibleRole.Alert
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.Controls.Add(Me.Label6)
+        Me.Controls.Add(Me.Label5)
+        Me.Controls.Add(Me.SecondaryBox)
+        Me.Controls.Add(Me.PrimaryBox)
+        Me.Controls.Add(Me.ReadmeButton)
         Me.Controls.Add(Me.stopOff)
         Me.Controls.Add(Me.stepR)
         Me.Controls.Add(Me.singleR)
@@ -257,7 +312,7 @@ Partial Class SpeechControl
         Me.Controls.Add(Me.speedTrackBar)
         Me.Controls.Add(Me.ComboBox1)
         Me.Name = "SpeechControl"
-        Me.Size = New System.Drawing.Size(150, 430)
+        Me.Size = New System.Drawing.Size(140, 539)
         CType(Me.speedTrackBar, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.volumeTrackBar, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.playimg, System.ComponentModel.ISupportInitialize).EndInit()
@@ -285,5 +340,10 @@ Partial Class SpeechControl
     Friend WithEvents singleR As System.Windows.Forms.RadioButton
     Friend WithEvents stepR As System.Windows.Forms.RadioButton
     Friend WithEvents stopOff As System.Windows.Forms.PictureBox
+    Friend WithEvents ReadmeButton As System.Windows.Forms.Button
+    Friend WithEvents PrimaryBox As System.Windows.Forms.ComboBox
+    Friend WithEvents SecondaryBox As System.Windows.Forms.ComboBox
+    Friend WithEvents Label5 As System.Windows.Forms.Label
+    Friend WithEvents Label6 As System.Windows.Forms.Label
 
 End Class

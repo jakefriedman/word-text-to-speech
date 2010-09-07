@@ -1,14 +1,15 @@
 ﻿Option Explicit On
 Imports Microsoft.Office.Tools 'toolbar import
 
+
 'vb addin to create a speech pane for Office 2007
 'code of interest primarily in SpeechControl.vb file, this file declares toolbar and handles UI and file changes
 Public Class ThisAddIn
 
 
-    Private speechTaskPane As CustomTaskPane
-    Private speechDisplayed As Boolean
-    Private show As Boolean
+    Private speechTaskPane As CustomTaskPane 'the actual toolbar
+    Private speechDisplayed As Boolean '
+    Private show As Boolean 'denotes what state of visible/hidden toolbar should be in
 
     'creates Speech taskpanes on word startup, sets visible
     Private Sub ThisAddIn_Startup(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Startup
@@ -19,11 +20,11 @@ Public Class ThisAddIn
     'Creates a task pane for every open document
     Public Sub AddAllSpeechTaskPanes()
         If Globals.ThisAddIn.Application.Documents.Count > 0 Then 'are docs open?
-            If Me.Application.ShowWindowsInTaskbar Then
-                For Each _doc As Word.Document In Me.Application.Documents
+            If Me.Application.ShowWindowsInTaskbar Then 'visible in taskbar
+                For Each _doc As Word.Document In Me.Application.Documents 'create pane for each doc
                     AddSpeechTaskPane(_doc)
                 Next
-            Else
+            Else 'not visible in taskbar, only make one instance
                 If Not speechDisplayed Then
                     AddSpeechTaskPane(Me.Application.ActiveDocument)
                 End If
@@ -35,9 +36,9 @@ Public Class ThisAddIn
     'Makes all taskpanes visible
     Public Sub ShowAllSpeechTaskPanes()
         Dim ctp As Microsoft.Office.Tools.CustomTaskPane
-        For i As Integer = Me.CustomTaskPanes.Count - 1 To 0 Step -1
+        For i As Integer = Me.CustomTaskPanes.Count - 1 To 0 Step -1 'iterate trough custom Task Panes
             ctp = Me.CustomTaskPanes.Item(i)
-            If ctp.Title = "Text to Speech" Then
+            If ctp.Title = "Text to Speech" Then 'if title of TTS toolbar, make it visible
                 ctp.Visible = True
             End If
         Next
@@ -46,7 +47,7 @@ Public Class ThisAddIn
     'Hides all Taskpanes
     Public Sub HideAllSpeechTaskPanes()
         Dim ctp As Microsoft.Office.Tools.CustomTaskPane
-        For i As Integer = Me.CustomTaskPanes.Count - 1 To 0 Step -1
+        For i As Integer = Me.CustomTaskPanes.Count - 1 To 0 Step -1 'iterate trough custom Task Panes
             ctp = Me.CustomTaskPanes.Item(i)
             If ctp.Title = "Text to Speech" Then
                 ctp.Visible = False 'just hide taskpane
@@ -64,17 +65,6 @@ Public Class ThisAddIn
     Protected Overrides Function CreateRibbonExtensibilityObject() As Microsoft.Office.Core.IRibbonExtensibility
         Return New MyRibbon()
     End Function
-
-    'show/hide button was pressed
-    Public Sub Button()
-        If show Then
-            show = False
-            Globals.ThisAddIn.HideAllSpeechTaskPanes()
-        Else
-            show = True
-            Globals.ThisAddIn.ShowAllSpeechTaskPanes()
-        End If
-    End Sub
 
     'on new document, make new taskpane
     Private Sub Application_NewDocument(ByVal Doc As Word.Document) Handles Application.NewDocument
@@ -103,10 +93,22 @@ Public Class ThisAddIn
         Dim ctp As Microsoft.Office.Tools.CustomTaskPane
         For i As Integer = Me.CustomTaskPanes.Count - 1 To 2 Step -1
             ctp = Me.CustomTaskPanes.Item(i)
-            If ctp.Window Is Nothing Then
+            If ctp.Window Is Nothing Then 'if no window, safe to close
                 Me.CustomTaskPanes.Remove(ctp)
             End If
         Next
+    End Sub
+
+
+    'show/hide toolbar button was pressed
+    Public Sub OnButton()
+        If show Then
+            show = False
+            Globals.ThisAddIn.HideAllSpeechTaskPanes()
+        Else
+            show = True
+            Globals.ThisAddIn.ShowAllSpeechTaskPanes()
+        End If
     End Sub
 
     'dont call remove panes on Shutdown!

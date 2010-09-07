@@ -23,13 +23,9 @@ Imports Word = Microsoft.Office.Interop.Word
 
     Private ribbon As Office.IRibbonUI
 
-    'creates button in ribbon
+    'creates button in ribbon (show/hide button)
     Public Sub OnButton(ByVal control As Office.IRibbonControl)
-        Globals.ThisAddIn.Button()
-    End Sub
-
-
-    Public Sub New()
+        Globals.ThisAddIn.OnButton()
     End Sub
 
     'sets ui for ribbon based on XML file specified

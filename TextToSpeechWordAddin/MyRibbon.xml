@@ -2,11 +2,12 @@
 <customUI xmlns="http://schemas.microsoft.com/office/2006/01/customui" onLoad="Ribbon_Load">
   <ribbon>
     <tabs>
-      <tab idMso="TabAddIns">
+      <tab idMso="TabAddIns" keytip ="x">
         <group id="SpeechGroup" label="Speech">
           <button id="showTask" label="Show/Hide Tools"
                screentip="Speech" onAction="OnButton"
-               supertip="Toggles the Text To Speech toolbar."/>
+               supertip="Toggles the Text To Speech toolbar."
+               keytip ="t"/>
         </group>
       </tab>
     </tabs>

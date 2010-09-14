@@ -1,6 +1,6 @@
-﻿Imports System.Speech.Synthesis 'speech tools import
-Imports System.Collections.ObjectModel 'Use for speech collections
+﻿Imports System.Collections.ObjectModel 'Use for speech collections
 Imports Word = Microsoft.Office.Interop.Word
+Imports System.Speech.Synthesis 'speech tools import
 
 Public Class SpeechControl
     '''''''''''''''''''''''''''''''''''''''''''''''''''''''''
@@ -82,6 +82,7 @@ Public Class SpeechControl
         PrimaryBox.Items.Add("Dark Yellow")
         PrimaryBox.Items.Add("Gray")
         PrimaryBox.Items.Add("Black")
+        PrimaryBox.Items.Add("None")
         PrimaryBox.SelectedIndex = 1 'Select bright green
 
         SecondaryBox.Items.Add("Yellow") 'secondary highlight
@@ -98,6 +99,7 @@ Public Class SpeechControl
         SecondaryBox.Items.Add("Dark Yellow")
         SecondaryBox.Items.Add("Gray")
         SecondaryBox.Items.Add("Black")
+        SecondaryBox.Items.Add("None")
         SecondaryBox.SelectedIndex = 0 'select yellow
 
         GetInstalledVoices(mySynth) 'get voices installed for TTS
@@ -339,13 +341,19 @@ Public Class SpeechControl
                 PrimaryHighlight = Word.WdColorIndex.wdDarkYellow
             Case 12
                 PrimaryHighlight = Word.WdColorIndex.wdGray50
-            Case Else
+            Case 13
                 PrimaryHighlight = Word.WdColorIndex.wdBlack
+            Case Else
+                PrimaryHighlight = SecondaryHighlight
         End Select
     End Sub
 
     'secondary highlight changed, update boolean
     Private Sub SecondaryBox_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles SecondaryBox.SelectedIndexChanged
+        Dim rstPrim As Boolean = False 'true if primary highlight must change
+        If PrimaryBox.SelectedIndex = 14 Then 'Primary Highlight set to none, set Prim = Secondary once secondary changed
+            rstPrim = True
+        End If
         Select Case SecondaryBox.SelectedIndex
             Case 0
                 SecondaryHighlight = Word.WdColorIndex.wdYellow
@@ -373,9 +381,14 @@ Public Class SpeechControl
                 SecondaryHighlight = Word.WdColorIndex.wdDarkYellow
             Case 12
                 SecondaryHighlight = Word.WdColorIndex.wdGray50
-            Case Else
+            Case 13
                 SecondaryHighlight = Word.WdColorIndex.wdBlack
+            Case Else
+                SecondaryHighlight = Word.WdColorIndex.wdNoHighlight
         End Select
+        If rstPrim Then
+            PrimaryHighlight = SecondaryHighlight
+        End If
     End Sub
 
     'button creates new word document, populates with readme
@@ -413,7 +426,7 @@ Public Class SpeechControl
         oRng.InsertParagraphAfter()
         oRng.InsertAfter("Select your desired reading voice.")
         oRng.InsertParagraphAfter()
-        oRng.InsertAfter("In 'Speech Amount' dropbox select how much of the document you want read every time you press play:")
+        oRng.InsertAfter("In 'Speech Amount' drop box select how much of the document you want read every time you press play:")
         oRng.InsertParagraphAfter()
         oRng.Font.Bold = False
         oRng.Font.Size = 12
@@ -435,7 +448,7 @@ Public Class SpeechControl
         iRng.ListFormat.ApplyBulletDefault() 'makes bullet list
 
         jRng = oDoc.Bookmarks.Item("\endofdoc").Range 'go to new end of file
-        jRng.InsertAfter("Underneath that dropbox, select radio button corresponding to what you want Word to do after it finishes reading the amount specified by 'Speech Amount'. Some options may not be available based on 'Speech Amount' selection:")
+        jRng.InsertAfter("Underneath that drop box, select radio button corresponding to what you want Word to do after it finishes reading the amount specified by 'Speech Amount'. Some options may not be available based on 'Speech Amount' selection:")
         jRng.InsertParagraphAfter()
 
         iRng = oDoc.Bookmarks.Item("\endofdoc").Range
@@ -455,7 +468,7 @@ Public Class SpeechControl
         oRng.InsertParagraphAfter()
         oRng.InsertAfter("Press green play button to read selection.  Play button will become a pause button when reading.")
         oRng.InsertParagraphAfter()
-        oRng.InsertAfter("If using highlighting, select your desired highlight colors in the dropboxes.")
+        oRng.InsertAfter("If using highlighting, select your desired highlight colors in the drop boxes.")
         oRng.InsertParagraphAfter()
         oRng.InsertAfter("NOTE: You cannot change any settings unless playback is stopped.  Use the stop button to cancel playback and allow settings to be changed.")
         oRng.InsertParagraphAfter()
@@ -489,7 +502,7 @@ Public Class SpeechControl
 
         'Insert another text paragraph.
         oPara3 = oDoc.Content.Paragraphs.Add
-        oPara3.Range.Text = "All rights held by the University of Wisconsin - Madison. Coded by Jacob Friedman, University of Wisconsin - Madison. 2010."
+        oPara3.Range.Text = "All rights held by the McBurney Center at the University of Wisconsin - Madison. Coded by Jacob Friedman, University of Wisconsin - Madison. 2010."
         oPara3.Range.Font.Bold = True
         oPara3.Range.Font.Size = 14
         oPara3.Format.SpaceAfter = 6
@@ -754,6 +767,5 @@ Public Class SpeechControl
             Return False
         End If
     End Function
-
 
 End Class

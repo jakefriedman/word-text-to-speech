@@ -28,6 +28,8 @@ Imports Word = Microsoft.Office.Interop.Word
         Globals.ThisAddIn.OnButton()
     End Sub
 
+
+
     'sets ui for ribbon based on XML file specified
     Public Function GetCustomUI(ByVal ribbonID As String) As String Implements Office.IRibbonExtensibility.GetCustomUI
         Return GetResourceText("TextToSpeechWordAddin.MyRibbon.xml")

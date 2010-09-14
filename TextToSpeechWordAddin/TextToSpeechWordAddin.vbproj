@@ -23,7 +23,7 @@
     <ProjectGuid>{B745B1F9-9E55-41A8-8E66-FD92553622ED}</ProjectGuid>
     <OutputType>Library</OutputType>
     <RootNamespace>TextToSpeechWordAddin</RootNamespace>
-    <AssemblyName>TextToSpeechWordAddin</AssemblyName>
+    <AssemblyName>Text-To-Speech Word Addin</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <StartupObject>
     </StartupObject>

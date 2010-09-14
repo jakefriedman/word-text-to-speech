@@ -1,0 +1,127 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<asmv1:assembly xsi:schemaLocation="urn:schemas-microsoft-com:asm.v1 assembly.adaptive.xsd" manifestVersion="1.0" xmlns:asmv3="urn:schemas-microsoft-com:asm.v3" xmlns:dsig="http://www.w3.org/2000/09/xmldsig#" xmlns="urn:schemas-microsoft-com:asm.v2" xmlns:asmv1="urn:schemas-microsoft-com:asm.v1" xmlns:asmv2="urn:schemas-microsoft-com:asm.v2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:co.v1="urn:schemas-microsoft-com:clickonce.v1">
+  <asmv1:assemblyIdentity name="Text-To-Speech Word Addin.dll" version="1.0.0.6" publicKeyToken="b5875a5b0861c34a" language="neutral" processorArchitecture="msil" type="win32" />
+  <description xmlns="urn:schemas-microsoft-com:asm.v1">Text-To-Speech Word Addin - Word add-in created with Visual Studio Tools for Office</description>
+  <application />
+  <entryPoint>
+    <co.v1:customHostSpecified />
+  </entryPoint>
+  <trustInfo>
+    <security>
+      <applicationRequestMinimum>
+        <PermissionSet Unrestricted="true" ID="Custom" SameSite="site" />
+        <defaultAssemblyRequest permissionSetReference="Custom" />
+      </applicationRequestMinimum>
+      <requestedPrivileges xmlns="urn:schemas-microsoft-com:asm.v3">
+        <!--
+          UAC Manifest Options
+          If you want to change the Windows User Account Control level replace the 
+          requestedExecutionLevel node with one of the following.
+
+        <requestedExecutionLevel  level="asInvoker" uiAccess="false" />
+        <requestedExecutionLevel  level="requireAdministrator" uiAccess="false" />
+        <requestedExecutionLevel  level="highestAvailable" uiAccess="false" />
+
+         If you want to utilize File and Registry Virtualization for backward 
+         compatibility then delete the requestedExecutionLevel node.
+    -->
+        <requestedExecutionLevel level="asInvoker" uiAccess="false" />
+      </requestedPrivileges>
+    </security>
+  </trustInfo>
+  <dependency>
+    <dependentOS>
+      <osVersionInfo>
+        <os majorVersion="5" minorVersion="1" buildNumber="2600" servicePackMajor="0" />
+      </osVersionInfo>
+    </dependentOS>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="preRequisite" allowDelayedBinding="true">
+      <assemblyIdentity name="Microsoft.Windows.CommonLanguageRuntime" version="2.0.50727.0" />
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="preRequisite" allowDelayedBinding="true">
+      <assemblyIdentity name="Microsoft.Office.Interop.SmartTag" version="12.0.0.0" publicKeyToken="71E9BCE111E9429C" language="neutral" />
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="preRequisite" allowDelayedBinding="true">
+      <assemblyIdentity name="Microsoft.Office.Interop.Word" version="12.0.0.0" publicKeyToken="71E9BCE111E9429C" language="neutral" />
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="preRequisite" allowDelayedBinding="true">
+      <assemblyIdentity name="Microsoft.Office.Tools.Common.v9.0" version="9.0.0.0" publicKeyToken="B03F5F7F11D50A3A" language="neutral" processorArchitecture="msil" />
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="preRequisite" allowDelayedBinding="true">
+      <assemblyIdentity name="Microsoft.Office.Tools.v9.0" version="9.0.0.0" publicKeyToken="B03F5F7F11D50A3A" language="neutral" processorArchitecture="msil" />
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="preRequisite" allowDelayedBinding="true">
+      <assemblyIdentity name="Microsoft.Vbe.Interop" version="12.0.0.0" publicKeyToken="71E9BCE111E9429C" language="neutral" />
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="preRequisite" allowDelayedBinding="true">
+      <assemblyIdentity name="Microsoft.VisualStudio.Tools.Applications.Runtime.v9.0" version="9.0.0.0" publicKeyToken="B03F5F7F11D50A3A" language="neutral" processorArchitecture="msil" />
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="preRequisite" allowDelayedBinding="true">
+      <assemblyIdentity name="Microsoft.VisualStudio.Tools.Applications.ServerDocument.v9.0" version="9.0.0.0" publicKeyToken="B03F5F7F11D50A3A" language="neutral" processorArchitecture="msil" />
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="preRequisite" allowDelayedBinding="true">
+      <assemblyIdentity name="office" version="12.0.0.0" publicKeyToken="71E9BCE111E9429C" language="neutral" />
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="preRequisite" allowDelayedBinding="true">
+      <assemblyIdentity name="stdole" version="7.0.3300.0" publicKeyToken="B03F5F7F11D50A3A" language="neutral" />
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="preRequisite" allowDelayedBinding="true">
+      <assemblyIdentity name="System.Core" version="3.5.0.0" publicKeyToken="b77a5c561934e089" language="neutral" processorArchitecture="msil" />
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="preRequisite" allowDelayedBinding="true">
+      <assemblyIdentity name="WindowsBase" version="3.0.0.0" publicKeyToken="31bf3856ad364e35" language="neutral" processorArchitecture="msil" />
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Text-To-Speech Word Addin.dll" size="55296">
+      <assemblyIdentity name="Text-To-Speech Word Addin" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+        <dsig:DigestValue>yjmGddlzb9FvnY5V7S/AO+PqpxA=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <vstav2:addIn xmlns:vstav2="urn:schemas-microsoft-com:vsta.v2">
+    <vstav2:entryPoints>
+      <vstav2:entryPoint class="TextToSpeechWordAddin.ThisAddIn">
+        <assemblyIdentity name="Text-To-Speech Word Addin" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
+      </vstav2:entryPoint>
+    </vstav2:entryPoints>
+    <vstav2:update enabled="false" />
+    <vstav2:application>
+      <vstov3:customization xmlns:vstov3="urn:schemas-microsoft-com:vsto.v3">
+        <vstov3:appAddIn application="Word" loadBehavior="3" keyName="Text-To-Speech Word Addin">
+          <vstov3:friendlyName>Text-To-Speech Word Addin</vstov3:friendlyName>
+          <vstov3:description>Text-To-Speech Word Addin - Word add-in created with Visual Studio Tools for Office</vstov3:description>
+        </vstov3:appAddIn>
+      </vstov3:customization>
+    </vstav2:application>
+  </vstav2:addIn>
+<publisherIdentity name="CN=quadpower7\Jake" issuerKeyHash="95cae4e11ef0b1682592d2564eef132002b03407" /><Signature Id="StrongNameSignature" xmlns="http://www.w3.org/2000/09/xmldsig#"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /><SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1" /><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" /><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /></Transforms><DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" /><DigestValue>eRmvfKCmYqbMMT7FQG9J7Yy7Kbk=</DigestValue></Reference></SignedInfo><SignatureValue>CoMFlKGSlsI86tw95XKCDQCdaf9ZHUvgo76qg8UAElH+o5xbYaRuhBlmYAyHyF96t1ja70QJiYnx2ZODHf0zLKGV0m5zHRgT3UtMrFZ8yOIipNU4fHjkL7ivXZU6yW3qwOEHDlR7vZxneaVsgmWGTe1I73ZZqEZPPctkq1iDYf4=</SignatureValue><KeyInfo Id="StrongNameKeyInfo"><KeyValue><RSAKeyValue><Modulus>zYfRYEbVQFEaYtWl4oHGdZE/+2kWCiIIyH6VzAlOa/aFA/BhehwY1xwibHAkGcwliDcZpRpQhZfkk8Ix6Q0tBs6vej5/MrSHtGd4sQy3tVs1yV8EzKa6iAkI6fjrQ+jhhJMu+zhdin91KaxO30icVsVVy4V17lOXRFJCghQ5InM=</Modulus><Exponent>AQAB</Exponent></RSAKeyValue></KeyValue><msrel:RelData xmlns:msrel="http://schemas.microsoft.com/windows/rel/2005/reldata"><r:license xmlns:r="urn:mpeg:mpeg21:2003:01-REL-R-NS" xmlns:as="http://schemas.microsoft.com/windows/pki/2005/Authenticode"><r:grant><as:ManifestInformation Hash="b929bb8ced496f40c53e31cca662a6a07caf1979" Description="" Url=""><as:assemblyIdentity name="Text-To-Speech Word Addin.dll" version="1.0.0.6" publicKeyToken="b5875a5b0861c34a" language="neutral" processorArchitecture="msil" type="win32" /></as:ManifestInformation><as:SignedBy /><as:AuthenticodePublisher><as:X509SubjectName>CN=quadpower7\Jake</as:X509SubjectName></as:AuthenticodePublisher></r:grant><r:issuer><Signature Id="AuthenticodeSignature" xmlns="http://www.w3.org/2000/09/xmldsig#"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /><SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1" /><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" /><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /></Transforms><DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" /><DigestValue>r57Xocd+Gl5Mm0kVcWx9qerMRlw=</DigestValue></Reference></SignedInfo><SignatureValue>GxrjbPTay97kArjDqdXRlRwP3O0PAcr3fsHlX4yUdEl9NKcOnmd9i0TxMrmTQs4ugELvX6VlIDMcaKNe54fHDNJGm3eJjrl4fXoRfU5Ax+0yavlEU9zqy7tbTCs4YXka9Q6/pqOaDWOVjISbPkZp6/cBhQ1XE/T5NXe2Yd8ksKQ=</SignatureValue><KeyInfo><KeyValue><RSAKeyValue><Modulus>zYfRYEbVQFEaYtWl4oHGdZE/+2kWCiIIyH6VzAlOa/aFA/BhehwY1xwibHAkGcwliDcZpRpQhZfkk8Ix6Q0tBs6vej5/MrSHtGd4sQy3tVs1yV8EzKa6iAkI6fjrQ+jhhJMu+zhdin91KaxO30icVsVVy4V17lOXRFJCghQ5InM=</Modulus><Exponent>AQAB</Exponent></RSAKeyValue></KeyValue><X509Data><X509Certificate>MIIB1TCCAT6gAwIBAgIQHnf0mR9b14tA1OqCbt+TPjANBgkqhkiG9w0BAQUFADApMScwJQYDVQQDHh4AcQB1AGEAZABwAG8AdwBlAHIANwBcAEoAYQBrAGUwHhcNMTAwNTI1MTgwMzEwWhcNMTEwNTI2MDAwMzEwWjApMScwJQYDVQQDHh4AcQB1AGEAZABwAG8AdwBlAHIANwBcAEoAYQBrAGUwgZ8wDQYJKoZIhvcNAQEBBQADgY0AMIGJAoGBAM2H0WBG1UBRGmLVpeKBxnWRP/tpFgoiCMh+lcwJTmv2hQPwYXocGNccImxwJBnMJYg3GaUaUIWX5JPCMekNLQbOr3o+fzK0h7RneLEMt7VbNclfBMymuogJCOn460Po4YSTLvs4XYp/dSmsTt9InFbFVcuFde5Tl0RSQoIUOSJzAgMBAAEwDQYJKoZIhvcNAQEFBQADgYEAGdJ05cnEsfcIZl5g8I4s6Vz+dpEbm7MhQnSNEd2gq/jZWvqRsWpx3xonlbafC1eb+zwqfv+8bo22UiQI5hQl3EYvvkHNWP4zt/yc3yKknllnqSF7iV0itTLeL3Wf4CBOURpZXjVW7317OnV6jNQ3YMknqSQ3N2NYH7MzyBEHD08=</X509Certificate></X509Data></KeyInfo></Signature></r:issuer></r:license></msrel:RelData></KeyInfo></Signature></asmv1:assembly>

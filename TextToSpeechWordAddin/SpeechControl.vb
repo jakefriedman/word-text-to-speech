@@ -472,6 +472,12 @@ Public Class SpeechControl
         oRng.InsertParagraphAfter()
         oRng.InsertAfter("NOTE: You cannot change any settings unless playback is stopped.  Use the stop button to cancel playback and allow settings to be changed.")
         oRng.InsertParagraphAfter()
+        oRng.InsertParagraphAfter()
+
+        oRng.InsertAfter("To uninstall the toolbar, go to 'Programs and Features' in the Windows Vista/7 Control Panel and uninstall 'Text-to-Speech Word Addin'.")
+
+        oRng.InsertParagraphAfter()
+
         'must set fonts after each section due to resused vars!
         oRng.Font.Bold = False
         oRng.Font.Size = 12

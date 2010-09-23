@@ -51,10 +51,10 @@ Public Class SpeechControl
         'first code run by office (automatically) on toolbar startup
         'on toolbar load, populate voice menu, amount menu, set booleans to defaults
         isPasused = False
-        highlight = False
-        continuous = False
+        highlight = True
+        continuous = True
         steps = False
-        singles = True
+        singles = False
         isInt = False
         PrimaryHighlight = Word.WdColorIndex.wdGreen
         SecondaryHighlight = Word.WdColorIndex.wdYellow
@@ -66,7 +66,7 @@ Public Class SpeechControl
         ComboBox2.Items.Add("Paragraph")
         ComboBox2.Items.Add("Sentence")
         ComboBox2.Items.Add("Selection")
-        ComboBox2.SelectedIndex = 0 'select first option on load (Document)
+        ComboBox2.SelectedIndex = 3 'select first option on load (sentence)
 
         PrimaryBox.Items.Add("Yellow") 'primary highlight
         PrimaryBox.Items.Add("Bright Green")
@@ -314,85 +314,177 @@ Public Class SpeechControl
 
     'primary highlight changed, update boolean, see index order for Case statement in SpeechControl_Load Sub
     Private Sub PrimaryBox_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles PrimaryBox.SelectedIndexChanged
+        InvisiblePrimary()
         Select Case PrimaryBox.SelectedIndex
             Case 0
                 PrimaryHighlight = Word.WdColorIndex.wdYellow
+                yellow1.Visible = True
             Case 1
                 PrimaryHighlight = Word.WdColorIndex.wdBrightGreen
+                bgreen1.Visible = True
             Case 2
+                bblue1.Visible = True
                 PrimaryHighlight = Word.WdColorIndex.wdTurquoise
             Case 3
+                pink1.Visible = True
                 PrimaryHighlight = Word.WdColorIndex.wdPink
             Case 4
+                blue1.Visible = True
                 PrimaryHighlight = Word.WdColorIndex.wdBlue
             Case 5
+                red1.Visible = True
                 PrimaryHighlight = Word.WdColorIndex.wdRed
             Case 6
+                dblue1.Visible = True
                 PrimaryHighlight = Word.WdColorIndex.wdDarkBlue
             Case 7
+                teal1.Visible = True
                 PrimaryHighlight = Word.WdColorIndex.wdTeal
             Case 8
+                green1.Visible = True
                 PrimaryHighlight = Word.WdColorIndex.wdGreen
             Case 9
+                purple1.Visible = True
                 PrimaryHighlight = Word.WdColorIndex.wdViolet
             Case 10
+                dred1.Visible = True
                 PrimaryHighlight = Word.WdColorIndex.wdDarkRed
             Case 11
+                gold1.Visible = True
                 PrimaryHighlight = Word.WdColorIndex.wdDarkYellow
             Case 12
+                grey1.Visible = True
                 PrimaryHighlight = Word.WdColorIndex.wdGray50
             Case 13
+                black1.Visible = True
                 PrimaryHighlight = Word.WdColorIndex.wdBlack
             Case Else
+                PrimtoSec()
                 PrimaryHighlight = SecondaryHighlight
         End Select
     End Sub
 
+    'disables primary highlight images
+    Private Sub InvisiblePrimary()
+        yellow1.Visible = False
+        blue1.Visible = False
+        red1.Visible = False
+        black1.Visible = False
+        green1.Visible = False
+        teal1.Visible = False
+        grey1.Visible = False
+        yellow1.Visible = False
+        dred1.Visible = False
+        bgreen1.Visible = False
+        pink1.Visible = False
+        purple1.Visible = False
+        bblue1.Visible = False
+        gold1.Visible = False
+        plain1.Visible = False
+        dblue1.Visible = False
+    End Sub
+
+    'disables secondary highlight images
+    Private Sub InvisibleSecondary()
+        yellow.Visible = False
+        blue.Visible = False
+        red.Visible = False
+        black.Visible = False
+        green.Visible = False
+        teal.Visible = False
+        grey.Visible = False
+        yellow.Visible = False
+        dred.Visible = False
+        bgreen.Visible = False
+        pink.Visible = False
+        purple.Visible = False
+        bblue.Visible = False
+        gold.Visible = False
+        plain.Visible = False
+        dblue.Visible = False
+    End Sub
+
+    'sets primary image visiblity to secondary image visibility. used for nohighlight primary
+    Private Sub PrimtoSec()
+        yellow1.Visible = yellow.Visible
+        blue1.Visible = blue.Visible
+        red1.Visible = red.Visible
+        black1.Visible = black.Visible
+        green1.Visible = green.Visible
+        teal1.Visible = teal.Visible
+        grey1.Visible = grey.Visible
+        yellow1.Visible = yellow.Visible
+        dred1.Visible = dred.Visible
+        bgreen1.Visible = bgreen.Visible
+        pink1.Visible = pink.Visible
+        purple1.Visible = purple.Visible
+        bblue1.Visible = bblue.Visible
+        gold1.Visible = gold.Visible
+        plain1.Visible = plain.Visible
+        dblue1.Visible = dblue.Visible
+    End Sub
     'secondary highlight changed, update boolean
     Private Sub SecondaryBox_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles SecondaryBox.SelectedIndexChanged
         Dim rstPrim As Boolean = False 'true if primary highlight must change
         If PrimaryBox.SelectedIndex = 14 Then 'Primary Highlight set to none, set Prim = Secondary once secondary changed
             rstPrim = True
         End If
+        InvisibleSecondary()
         Select Case SecondaryBox.SelectedIndex
             Case 0
                 SecondaryHighlight = Word.WdColorIndex.wdYellow
+                yellow.Visible = True
             Case 1
                 SecondaryHighlight = Word.WdColorIndex.wdBrightGreen
+                bgreen.Visible = True
             Case 2
+                bblue.Visible = True
                 SecondaryHighlight = Word.WdColorIndex.wdTurquoise
             Case 3
+                pink.Visible = True
                 SecondaryHighlight = Word.WdColorIndex.wdPink
             Case 4
+                blue.Visible = True
                 SecondaryHighlight = Word.WdColorIndex.wdBlue
             Case 5
+                red.Visible = True
                 SecondaryHighlight = Word.WdColorIndex.wdRed
             Case 6
+                dblue.Visible = True
                 SecondaryHighlight = Word.WdColorIndex.wdDarkBlue
             Case 7
+                teal.Visible = True
                 SecondaryHighlight = Word.WdColorIndex.wdTeal
             Case 8
+                green.Visible = True
                 SecondaryHighlight = Word.WdColorIndex.wdGreen
             Case 9
+                purple.Visible = True
                 SecondaryHighlight = Word.WdColorIndex.wdViolet
             Case 10
+                dred.Visible = True
                 SecondaryHighlight = Word.WdColorIndex.wdDarkRed
             Case 11
+                gold.Visible = True
                 SecondaryHighlight = Word.WdColorIndex.wdDarkYellow
             Case 12
+                grey.Visible = True
                 SecondaryHighlight = Word.WdColorIndex.wdGray50
             Case 13
+                black.Visible = True
                 SecondaryHighlight = Word.WdColorIndex.wdBlack
             Case Else
+                plain.Visible = True
                 SecondaryHighlight = Word.WdColorIndex.wdNoHighlight
         End Select
         If rstPrim Then
             PrimaryHighlight = SecondaryHighlight
+            PrimtoSec()
         End If
     End Sub
 
     'button creates new word document, populates with readme
-    Private Sub ReadmeButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ReadmeButton.Click
+    Private Sub ReadmeButton_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles ReadmeButton.LinkClicked
         Dim oWord As Word.Application
         Dim oDoc As Word.Document
         Dim oPara1 As Word.Paragraph, oPara2 As Word.Paragraph, oPara3 As Word.Paragraph
@@ -508,7 +600,7 @@ Public Class SpeechControl
 
         'Insert another text paragraph.
         oPara3 = oDoc.Content.Paragraphs.Add
-        oPara3.Range.Text = "All rights held by the McBurney Center at the University of Wisconsin - Madison. Coded by Jacob Friedman, University of Wisconsin - Madison. 2010."
+        oPara3.Range.Text = "All rights held by the McBurney Center at the University of Wisconsin - Madison. Coded by Jacob Friedman, University of Wisconsin - Madison. 2010. Please email tschwanke@wisc.edu or jdfriedman3@wisc.edu for support."
         oPara3.Range.Font.Bold = True
         oPara3.Range.Font.Size = 14
         oPara3.Format.SpaceAfter = 6
@@ -773,5 +865,6 @@ Public Class SpeechControl
             Return False
         End If
     End Function
+
 
 End Class

@@ -40,7 +40,7 @@
     <InstallUrl>
     </InstallUrl>
     <TargetCulture>en</TargetCulture>
-    <ApplicationVersion>1.0.0.6</ApplicationVersion>
+    <ApplicationVersion>1.0.0.7</ApplicationVersion>
     <AutoIncrementApplicationRevision>false</AutoIncrementApplicationRevision>
     <UpdateEnabled>false</UpdateEnabled>
     <UpdateInterval>0</UpdateInterval>
@@ -284,6 +284,51 @@
     <None Include="README.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\samplebblue.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\samplebgreen.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\sampleblack.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\sampleblue.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\sampledblue.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\sampledred.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\samplegold.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\samplegreen.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\samplegrey.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\samplepink.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\sampleplain.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\samplepurple.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\samplered.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\sampleteal.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\sampleyellow.png" />
   </ItemGroup>
   <!-- Include the build rules for a Visual Basic project. -->
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
